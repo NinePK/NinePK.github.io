@@ -1,0 +1,28 @@
+/* Project modal dark theme overrides */
+.projectModal {
+  background: #141920;
+  border-color: rgba(255,255,255,0.14);
+  box-shadow: 16px 16px 0 rgba(163,230,53,0.15), 0 0 0 1px rgba(79,142,247,0.15);
+  color: #e8edf5;
+}
+.modalClose {
+  background: #1a2030;
+  border-color: rgba(255,255,255,0.12);
+  color: #e8edf5;
+}
+.modalClose:hover { background: #4f8ef7; color: #fff; }
+.modalKicker { color: #4f8ef7; }
+.projectModal h2 { color: #fff; }
+.modalColumns h3, .modalStack h3 { color: #6b7a94; letter-spacing: 0.12em; }
+.modalColumns li { border-color: rgba(255,255,255,0.07); color: #c5cedb; font-size: 0.9rem; }
+.modalColumns li::before { color: #a3e635; }
+.modalColumns { border-color: rgba(255,255,255,0.07); }
+.modalStack span { background: #1a2030; border-color: rgba(255,255,255,0.1); color: #6b7a94; }
+.modalLink { background: linear-gradient(135deg, #4f8ef7, #7c5cfc); }
+.modalPrivate { color: #6b7a94; }
+.modalBackdrop { background: rgba(4,6,10,0.88); }
+.modalIntro { color: #6b7a94; }
+
+.achievements{padding:8rem 4vw;border-top:1px solid var(--line)}.achievementGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem}.achievement{border:1px solid var(--line);background:#fff;overflow:hidden;transition:.25s}.achievement:hover{transform:translateY(-6px);box-shadow:8px 8px 0 var(--ink)}.achievementImage{height:230px;position:relative;background:#e7e7e7}.achievementImage img{object-fit:cover;object-position:top}.achievementBody{padding:1.25rem}.achievementBody p{margin:0;color:#63851f;font-size:.64rem;font-weight:900;letter-spacing:.09em;text-transform:uppercase}.achievementBody h3{font-size:1.4rem;letter-spacing:-.04em;margin:.6rem 0;color:#111827}.achievementBody span{color:#5b6472;font-size:.8rem;line-height:1.6}
+.toolkit{overflow:visible}.skillLoop{display:none}.toolTable{border-top:2px solid var(--ink);border-bottom:1px solid var(--ink)}.toolRow{display:grid;grid-template-columns:30% 1fr;min-height:86px;border-bottom:1px solid var(--line);align-items:center}.toolRow:last-child{border-bottom:0}.toolRow b{align-self:stretch;display:flex;align-items:center;padding:1.25rem 1.5rem 1.25rem 0;border-right:1px solid var(--line);font-size:1.1rem;letter-spacing:-.03em}.toolRow span{padding:1.25rem 1.8rem;color:var(--muted);font-size:1rem;line-height:1.65}.toolRow:hover{background:#e7f5bf}.toolRow:hover span{color:var(--ink)}
+@media(max-width:900px){.achievementGrid{grid-template-columns:1fr}.achievementImage{height:300px}.toolRow{grid-template-columns:25% 1fr}}@media(max-width:560px){.achievements{padding-left:1.2rem;padding-right:1.2rem}.achievementImage{height:220px}.toolRow{grid-template-columns:1fr;min-height:auto}.toolRow b{padding:1rem 0 .2rem;border-right:0}.toolRow span{padding:.25rem 0 1rem;font-size:.9rem}}

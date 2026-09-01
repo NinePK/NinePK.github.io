@@ -1,121 +1,49 @@
-const projects = [
-  {
-    title: "BroTax",
-    subtitle: "LINE OA Expense & Tax Tracker",
-    type: "Client Project",
-    description: "A LINE-native financial workflow for Thai SMEs and freelancers. Users can record income and expenses, attach evidence to Google Drive, review monthly summaries, and monitor accumulated revenue for VAT planning.",
-    stack: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "LINE LIFF", "Messaging API", "Google OAuth", "Drive API"],
-    highlights: ["LINE LIFF authentication", "Messaging API webhook verification", "Google OAuth & Drive integration", "Access control for trial / paid / expired users", "Admin and audit-log modules"],
-    href: null,
-  },
-  {
-    title: "Restaurant",
-    subtitle: "POS & QR Ordering Management System",
-    type: "Freelance Project",
-    description: "A full-stack restaurant operations system for a single restaurant. Customers scan a table QR code to order while staff manage order queues, kitchen workflow, billing, promotions, employees, permissions, reports and audit logs.",
-    stack: ["Next.js 14", "TypeScript", "Prisma", "PostgreSQL", "Tailwind CSS", "JWT", "Cloudinary", "Docker"],
-    highlights: ["QR ordering linked to table tokens", "Kitchen and cashier workflows", "Role-based permissions", "VAT, service charge and promotion logic", "Sales reporting and audit logging"],
-    href: "https://github.com/NinePK/Restaurant",
-  },
-  {
-    title: "Internship Portal",
-    subtitle: "University Internship Management Platform",
-    type: "Capstone Project",
-    description: "A university internship management platform for students and academic advisors. The backend exposes REST APIs for internship records, companies, reports, evaluations, weekly records and administrative reference data.",
-    stack: ["Go", "Go Fiber", "REST API", "GORM", "Database Design"],
-    highlights: ["Modular controller / router / model architecture", "Student and advisor workflows", "Company and internship records", "Reporting and evaluation modules", "Designed for 100+ students and advisors"],
-    href: "https://github.com/NinePK/Back_coop",
-  },
-  {
-    title: "TESA Top Gun",
-    subtitle: "MQTT Embedded-System Backend",
-    type: "Competition Project · Silver Rank",
-    description: "A containerized IoT backend developed under competition time constraints for TESA Top Gun Rally 2023, using MQTT-oriented data flow, FastAPI, MongoDB and Dockerized services.",
-    stack: ["Python", "FastAPI", "MQTT", "MongoDB", "Docker"],
-    highlights: ["IoT telemetry ingestion", "FastAPI sensor endpoints", "Async MongoDB persistence", "Dockerized services", "Timed team engineering competition"],
-    href: "https://github.com/NinePK/MQTT-TEST",
-  },
-  {
-    title: "Electric Cost",
-    subtitle: "ESP32 Electricity Cost Monitoring",
-    type: "Academic Project",
-    description: "An IoT coursework project that processes voltage and current readings from an ESP32-oriented setup, persists measurements, calculates estimated electricity cost, and exposes API/dashboard services.",
-    stack: ["ESP32", "Python", "FastAPI", "MongoDB", "Streamlit", "Docker"],
-    highlights: ["Voltage and current processing", "Power and cost calculation", "FastAPI + MongoDB", "Streamlit dashboard", "Docker Compose environment"],
-    href: "https://github.com/NinePK/Electric_cost",
-  },
+"use client";
+
+import Image from "next/image";
+import { useState } from "react";
+import ShinyText from "./ShinyText";
+import DotField from "./DotField";
+import "./overrides.css";
+import "./type-scale.css";
+import "./project-modal.css";
+import "./layout-fixes.css";
+
+type Language = "th" | "en";
+type Project = { no: string; title: string; category: string; stack: string[]; href?: string; copy: Record<Language, { summary: string; system: string[]; impact: string[] }> };
+
+const projects: Project[] = [
+  { no: "01", title: "Restaurant", category: "Business operations system", stack: ["Next.js", "TypeScript", "Prisma", "PostgreSQL", "Docker"], href: "https://github.com/NinePK/Restaurant", copy: { th: { summary: "ระบบจัดการร้านอาหารที่เชื่อมการสั่งอาหารผ่าน QR, ครัว, แคชเชียร์ และรายงานไว้ใน workflow เดียว", system: ["QR Ordering ที่ผูกกับโต๊ะ", "Order board และหน้าครัวแบบติดตามสถานะ", "Billing, โปรโมชัน, เมนู และพนักงาน", "สิทธิ์ผู้ใช้ รายงาน และ Audit Log"], impact: ["ลดจุดตกหล่นระหว่างลูกค้า ครัว และแคชเชียร์", "ทำให้ข้อมูลการดำเนินงานอยู่ในระบบเดียว", "ช่วยให้เจ้าของร้านตรวจสอบย้อนหลังได้" ] }, en: { summary: "A restaurant operations system that connects QR ordering, kitchen work, cashier billing and reporting in one workflow.", system: ["Table-linked QR ordering", "Live order board and kitchen status", "Billing, promotions, menu and staff management", "Permissions, reporting and audit logs"], impact: ["Reduces handoff errors across the restaurant", "Keeps operational data in one place", "Makes follow-up and review easier for owners"] } } },
+  { no: "02", title: "BroTax", category: "LINE OA financial workflow", stack: ["Next.js", "Supabase", "LINE LIFF", "Google APIs"], copy: { th: { summary: "ระบบบันทึกรายรับ–รายจ่ายบน LINE สำหรับผู้ประกอบการไทย พร้อมการเก็บหลักฐานและติดตามยอดเพื่อวางแผน VAT", system: ["LINE LIFF และระบบยืนยันตัวตน", "บันทึกรายการพร้อมหลักฐานประกอบ", "เชื่อม Google Drive สำหรับจัดเก็บเอกสาร", "กำหนดสิทธิ์ Trial, Paid และ Admin"], impact: ["ทำให้การบันทึกบัญชีรายวันสะดวกขึ้น", "เก็บหลักฐานเป็นระเบียบและค้นหาง่าย", "ช่วยมองยอดสะสมเพื่อวางแผนภาษี" ] }, en: { summary: "A LINE-native income and expense workflow for Thai SMEs, with evidence storage and VAT planning support.", system: ["LINE LIFF authentication", "Transaction records with evidence", "Google Drive document integration", "Trial, paid and admin access control"], impact: ["Makes daily records easier to maintain", "Organizes evidence for later review", "Supports revenue tracking for tax planning"] } } },
+  { no: "03", title: "PMO Audit", category: "MFEC internal system", stack: ["Appsmith", "PostgreSQL", "Pentaho", "n8n"], copy: { th: { summary: "ระบบภายในสำหรับ PMO เพื่อติดตามการตรวจสอบโครงการ ความสอดคล้อง และรายงานประจำเดือน", system: ["คัดกรองโครงการและกำหนด Audit ตาม Phase", "ตรวจสอบหลักฐานและบันทึก Compliance", "เชื่อมข้อมูลด้วย PostgreSQL และ Pentaho", "สร้างรายงานและ automation ด้วย n8n"], impact: ["ทำให้ทีม PMO ตรวจหลายโครงการจากจุดเดียว", "ลดงานตรวจสอบแบบกระจัดกระจาย", "ทำให้ผล Audit ติดตามย้อนหลังได้" ] }, en: { summary: "An internal PMO platform for project-audit workflows, compliance tracking and monthly reporting.", system: ["Audit eligibility and phase-based checks", "Evidence review and compliance records", "PostgreSQL and Pentaho data integration", "Reporting and automation with n8n"], impact: ["Centralizes PMO work across projects", "Reduces fragmented manual review", "Creates traceable audit outcomes"] } } },
+  { no: "04", title: "Nong Sai Jai", category: "MFEC AI workflow", stack: ["Next.js", "n8n", "PostgreSQL", "Supabase"], copy: { th: { summary: "workflow ผู้ช่วย AI ที่รักษาบริบทการสนทนาและช่วยประเมินความเสี่ยงโครงการในรูปแบบข้อมูลที่นำไปใช้ต่อได้", system: ["Next.js เชื่อมกับ n8n orchestration", "เก็บ session และ context บน PostgreSQL/Supabase", "วิเคราะห์ข้อมูลด้วย AI และตรวจ JSON", "บันทึกผลประเมินกลับสู่ระบบ"], impact: ["ทำให้การประเมินมีรูปแบบสม่ำเสมอ", "ลดการถามข้อมูลเดิมซ้ำ", "ทำให้ข้อมูลพร้อมใช้ต่อใน automation" ] }, en: { summary: "An AI-assistant workflow that preserves conversation context and produces usable project-risk assessments.", system: ["Next.js frontend with n8n orchestration", "PostgreSQL/Supabase session and context storage", "AI analysis with JSON validation", "Assessment persistence for downstream use"], impact: ["Creates more consistent assessment output", "Avoids repeatedly asking for context", "Provides reliable data for automation"] } } },
+  { no: "05", title: "TESA Top Gun", category: "Embedded systems competition", stack: ["FastAPI", "MQTT", "MongoDB", "Docker"], href: "https://github.com/NinePK/MQTT-TEST", copy: { th: { summary: "backend สำหรับการแข่งขัน Embedded Systems ที่รับข้อมูลอุปกรณ์ผ่าน MQTT และจัดการ API กับการจัดเก็บข้อมูล", system: ["MQTT telemetry flow", "FastAPI endpoints", "MongoDB สำหรับข้อมูล sensor", "Dockerized services"], impact: ["ฝึกส่งมอบงานภายใต้เวลาจำกัด", "วางโครงสร้างสำหรับระบบอุปกรณ์เชื่อมต่อ", "แยกส่วน ingestion, API และ data storage ชัดเจน" ] }, en: { summary: "A competition backend for connected devices, handling MQTT telemetry, APIs and data persistence.", system: ["MQTT telemetry flow", "FastAPI endpoints", "MongoDB sensor storage", "Dockerized services"], impact: ["Built under real time constraints", "Provides a connected-device foundation", "Separates ingestion, API and storage concerns"] } } },
 ];
 
-const skills = {
-  Frontend: ["TypeScript", "JavaScript", "React", "Next.js", "Vue.js", "Nuxt.js", "Tailwind CSS"],
-  Backend: ["Node.js", "Go", "Go Fiber", "Python", "FastAPI", "Java", "Spring Boot", "REST APIs"],
-  Data: ["PostgreSQL", "SQL", "Supabase", "Prisma", "MongoDB", "Firebase", "InfluxDB", "Data Modeling"],
-  Platform: ["Docker", "Git", "CI/CD", "Google Cloud", "AWS", "n8n", "Testing", "Deployment"],
-};
-
-const experience = [
-  ["2025 — 2026", "Full Stack Developer Intern", "MFEC Public Company Limited", "Built internal software across AI/RAG applications and project-audit automation, contributing from requirement analysis through development, testing, debugging and deployment."],
-  ["2024 — 2026", "Freelance Software Developer", "Independent", "Delivered full-stack business systems and client work spanning restaurant operations, LINE OA financial workflows, API integrations and production improvements."],
-  ["2024", "Capstone Project Developer", "University of Phayao", "Developed an internship management platform with a Go backend, REST APIs and database integration for students and academic advisors."],
-];
-
-function Arrow() {
-  return <span aria-hidden="true">↗</span>;
-}
+const copy = { th: { nav: ["ผลงาน", "เกี่ยวกับ", "ติดต่อ"], status: "FULL-STACK DEVELOPER · OPEN TO OPPORTUNITIES", hero: <>สร้างระบบที่<br /><em><ShinyText text="ทำให้งานง่ายขึ้น" speed={2.8} delay={1.2} color="#f7f9fc" shineColor="#caff5c" spread={110} /></em></>, intro: "ผมชื่อ ภคภพ เขียวขำ เป็น Full-stack Developer ที่สนใจการเปลี่ยนงานที่ซับซ้อนให้กลายเป็นซอฟต์แวร์ที่คนใช้งานได้จริง", explore: "ดูผลงาน", about: "เกี่ยวกับผม", aboutTitle: <>เริ่มจากความเข้าใจ<br /><span>ไม่ใช่แค่เทคโนโลยี</span></>, aboutBody: "ผมชอบทำงานกับปัญหาหน้างานจริง เรียนรู้บริบทของผู้ใช้ แล้วออกแบบระบบที่ช่วยให้ทีมทำงานได้ชัดเจนและมั่นใจขึ้น ประสบการณ์ของผมครอบคลุมระบบภายในองค์กร ระบบธุรกิจ และงานด้าน IoT", work: "ผลงานที่คัดเลือก", workTitle: <>ผลงานของฉัน<br />ที่เคยทำ</>, workBody: "แต่ละโปรเจกต์คือโอกาสให้ผมฝึกคิดเป็นระบบ ทำงานร่วมกับข้อจำกัด และส่งมอบสิ่งที่ใช้งานได้จริง", achievements: "ความสำเร็จ", achievementsTitle: <>เรียนรู้ต่อเนื่อง<br />จากการลงมือทำ</>, toolkit: "ทักษะและเทคโนโลยี", toolkitTitle: <>ทักษะและเทคโนโลยี<br />ที่ผมใช้ได้</>, toolkitBody: "เทคโนโลยีที่เคยใช้ในโปรเจกต์จริง การฝึกอบรม และการพัฒนาต่อยอดด้วยตัวเอง", experience: "ประสบการณ์", contact: "ติดต่อ", contactTitle: <>พร้อมเติบโต<br /><em>ไปกับทีมที่ดี</em></>, contactBody: "กำลังมองหาโอกาสในบทบาท Software Engineer หรือ Full-stack Developer ที่ได้ร่วมสร้างผลิตภัณฑ์ แก้ปัญหาจริง และเรียนรู้จากทีม", modalSystem: "ภาพรวมระบบ", modalImpact: "สิ่งที่ระบบช่วยได้", modalStack: "Tech Stack", private: "ซอร์สโค้ดเป็นส่วนตัวตามข้อตกลงขององค์กร/ลูกค้า", detail: "คลิกดูรายละเอียด", lang: "ไทย" }, en: { nav: ["Work", "About", "Contact"], status: "FULL-STACK DEVELOPER · OPEN TO OPPORTUNITIES", hero: <>Building software<br /><em><ShinyText text="that makes work clearer." speed={2.8} delay={1.2} color="#f7f9fc" shineColor="#caff5c" spread={110} /></em></>, intro: "I’m Pakapop Khiawkhum, a Full-stack Developer interested in turning complex work into software people can confidently use.", explore: "See my work", about: "About", aboutTitle: <>Understanding the work<br /><span>before building the system.</span></>, aboutBody: "I enjoy getting close to real operational problems, learning the users’ context, and shaping software that helps teams work with more clarity and confidence. My experience spans internal tools, business systems and IoT projects.", work: "Selected work", workTitle: <>My previous<br />work.</>, workBody: "Each project is a chance to think through constraints, work systematically and deliver something useful in practice.", achievements: "Achievements", achievementsTitle: <>Learning through<br />doing.</>, toolkit: "Skills & technologies", toolkitTitle: <>Skills and technologies<br />I can work with.</>, toolkitBody: "Technologies I have used in real projects, training and independent learning.", experience: "Experience", contact: "Contact", contactTitle: <>Ready to grow<br /><em>with a strong team.</em></>, contactBody: "I’m looking for a Software Engineer or Full-stack Developer role where I can help build products, solve real problems and learn with an experienced team.", modalSystem: "System overview", modalImpact: "What it helps with", modalStack: "Tech stack", private: "Source code is private under organizational or client confidentiality.", detail: "View details", lang: "ENG" } };
 
 export default function Home() {
-  return (
-    <main>
-      <header className="nav">
-        <a className="logo" href="#top">PK<span>.</span></a>
-        <nav>
-          <a href="#about">About</a><a href="#work">Work</a><a href="#experience">Experience</a><a href="#contact">Contact</a>
-        </nav>
-        <a className="resume" href="/Pakapop-Khiawkhum-Resume.pdf" target="_blank">Résumé <Arrow /></a>
-      </header>
-
-      <section className="hero" id="top">
-        <p className="eyebrow"><i /> Full Stack Developer · Software Engineer</p>
-        <h1>Building software<br/><em>from requirement to production.</em></h1>
-        <div className="heroText">
-          <p>I design and build web applications, APIs, automation workflows and connected systems — across client work, internal enterprise tools, university systems and engineering competitions.</p>
-          <div className="actions"><a className="primary" href="#work">Explore my work <Arrow /></a><a href="https://github.com/NinePK" target="_blank">GitHub <Arrow /></a></div>
-        </div>
-        <div className="keywords"><span>WEB</span><span>API</span><span>DATA</span><span>AUTOMATION</span><span>IoT</span></div>
-      </section>
-
-      <section className="section" id="about">
-        <div className="label">01 / About</div>
-        <div className="twoCol"><h2>I build practical systems,<br/>not just interfaces.</h2><div className="copy"><p>My work sits between product requirements and implementation. I enjoy turning operational problems into maintainable software — shaping data models, APIs, permissions, integrations and user flows.</p><p>My recent work spans Next.js business applications, LINE OA integrations, PostgreSQL-backed systems, Go APIs, AI/LLM workflows and Dockerized IoT backends.</p></div></div>
-      </section>
-
-      <section className="section" id="work">
-        <div className="sectionHead"><div className="label">02 / Selected Work</div><h2>Projects with real engineering depth.</h2></div>
-        <div className="projects">
-          {projects.map((p, i) => <article className="project" key={p.title}>
-            <div className="meta"><span>0{i+1}</span><span>{p.type}</span></div>
-            <div className="projectTop"><div><h3>{p.title}</h3><strong>{p.subtitle}</strong></div><p>{p.description}</p></div>
-            <div className="details"><div><b>Engineering highlights</b><ul>{p.highlights.map(h => <li key={h}>{h}</li>)}</ul></div><div><b>Stack</b><div className="tags">{p.stack.map(s => <span key={s}>{s}</span>)}</div></div></div>
-            <div className="projectFoot"><span>{p.href ? "Public repository" : "Commercial source code is private"}</span>{p.href ? <a href={p.href} target="_blank">View repository <Arrow /></a> : <span>Private source</span>}</div>
-          </article>)}
-        </div>
-      </section>
-
-      <section className="section" id="experience">
-        <div className="sectionHead"><div className="label">03 / Experience</div><h2>Experience across product delivery.</h2></div>
-        <div className="timeline">{experience.map(([period, role, company, body]) => <article key={role}><small>{period}</small><div><h3>{role}</h3><span>{company}</span></div><p>{body}</p></article>)}</div>
-      </section>
-
-      <section className="section">
-        <div className="sectionHead"><div className="label">04 / Toolkit</div><h2>Technologies I work with.</h2></div>
-        <div className="skillGrid">{Object.entries(skills).map(([group, items]) => <div key={group}><h3>{group}</h3>{items.map(item => <span key={item}>{item}</span>)}</div>)}</div>
-      </section>
-
-      <section className="contact" id="contact">
-        <div><div className="label">05 / Contact</div><h2>Have a role or project<br/>worth building?</h2></div>
-        <div className="contactRight"><p>I&apos;m open to software engineering opportunities and projects where I can contribute across implementation, integration and problem solving.</p><a className="email" href="mailto:ninepakapop@gmail.com">ninepakapop@gmail.com <Arrow /></a><div className="links"><a href="https://github.com/NinePK" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/pakapop-k" target="_blank">LinkedIn</a><a href="/Pakapop-Khiawkhum-Resume.pdf" target="_blank">Résumé</a></div></div>
-      </section>
-      <footer><span>© 2026 Pakapop Khiawkhum</span><span>Full Stack Developer · Thailand</span></footer>
-    </main>
-  );
+  const [language, setLanguage] = useState<Language>("th");
+  const [active, setActive] = useState<Project | null>(null);
+  const t = {
+    ...copy[language],
+    contactBody: language === "th"
+      ? "กำลังมองหาโอกาสในบทบาท Software Engineer, Full-stack Developer, AI Engineer หรือ Data Engineer เพื่อร่วมสร้างผลิตภัณฑ์ แก้ปัญหาจริง และเรียนรู้จากทีม"
+      : "I’m looking for a Software Engineer, Full-stack Developer, AI Engineer or Data Engineer role where I can help build products, solve real problems and learn with an experienced team.",
+  };
+  return <main id="top"><nav className="nav"><a className="mark" href="#top">PK<span>_</span></a><div className="navlinks"><a href="#work">{t.nav[0]}</a><a href="#about">{t.nav[1]}</a><a href="#contact">{t.nav[2]}</a></div><button className="languageToggle" onClick={() => setLanguage(language === "th" ? "en" : "th")}>{t.lang}</button></nav>
+    <section className="hero"><div className="gridAura" /><div className="heroDotField"><DotField dotRadius={1.2} dotSpacing={24} cursorRadius={340} bulgeStrength={44} glowRadius={220} gradientFrom="rgba(163,230,53,0.25)" gradientTo="rgba(79,142,247,0.14)" glowColor="rgba(163,230,53,0.16)" /></div><div className="heroCopy"><p className="kicker"><i /> {t.status}</p><h1>{t.hero}</h1><p className="intro">{t.intro}</p><div className="heroActions"><a className="button solid" href="#work">{t.explore} <b>↓</b></a><a className="button" href="https://github.com/NinePK" target="_blank">GitHub ↗</a></div></div><div className="heroVisual"><div className="orbit orbitOne" /><div className="orbit orbitTwo" /><div className="portrait"><Image src="/Profile.jpg" alt="Pakapop Khiawkhum" fill priority sizes="(max-width:760px) 220px,380px" /></div><div className="badge buildBadge">THINK · BUILD · LEARN</div><div className="badge locationBadge">THAILAND<br /><b>OPEN TO WORK</b></div></div></section>
+    <section className="statement" id="about"><p className="sectionNo">01 — {t.about}</p><div><h2>{t.aboutTitle}</h2><p>{t.aboutBody}</p><div className="stats"><div><b>Full-stack</b><span>Web, API & data workflows</span></div><div><b>MFEC</b><span>Internal systems experience</span></div><div><b>2024 — now</b><span>Learning through delivery</span></div></div></div></section>
+    <section className="work" id="work"><div className="sectionHead"><p className="sectionNo">02 — {t.work}</p><h2>{t.workTitle}</h2><p>{t.workBody}</p></div><div className="projectGrid">{projects.map((project) => <article className="project projectClickable" key={project.title} onClick={() => setActive(project)}><div className="projectBody"><p className="projectKind">{project.category}</p><h3>{project.title}</h3><p className="projectText">{project.copy[language].summary}</p><div className="stack">{project.stack.map((item) => <span key={item}>{item}</span>)}</div><div className="projectFooter"><span>{project.href ? "GitHub ↗" : "Private work"}</span><b>{t.detail}</b></div></div></article>)}</div></section>
+    <section className="achievements"><div className="sectionHead"><p className="sectionNo">03 — {t.achievements}</p><h2>{t.achievementsTitle}</h2><p>{language === "th" ? "สิ่งที่ได้รับจากการฝึกฝน ลงสนามแข่งขัน และทำงานจริง" : "Recognition earned through training, competition and real work."}</p></div><div className="achievementGrid"><Achievement image="/Data.png" title="Basics of Data Science" label="Big Data Institute · 2025" /><Achievement image="/TESA.png" title="TESA Top Gun Rally" label="Silver Level · 2023" /><Achievement image="/MFEC.png" title="MFEC Internship" label="2025 — 2026" /></div></section>
+    <section className="toolkit"><p className="sectionNo">04 — {t.toolkit}</p><div className="toolkitTop"><h2>{t.toolkitTitle}</h2><p>{t.toolkitBody}</p></div><div className="toolTable">{language === "th" ? <><ToolRow name="Web Development" tools="TypeScript · React · Next.js · Vue.js · Tailwind CSS" /><ToolRow name="Backend & Languages" tools="Node.js · Go · Python · Java Spring Boot · C# · C++ · REST APIs" /><ToolRow name="AI Engineering" tools="Python · FastAPI · n8n · LLM APIs · Prompt Engineering" /><ToolRow name="Data Engineering" tools="PostgreSQL · Supabase · MongoDB · Prisma · SQL · Pentaho" /><ToolRow name="Platform & Integration" tools="Docker · Git · CI/CD · Cloud · LINE OA · Google APIs · MQTT · JWT" /></> : <><ToolRow name="Web Development" tools="TypeScript · React · Next.js · Vue.js · Tailwind CSS" /><ToolRow name="Backend & Languages" tools="Node.js · Go · Python · Java Spring Boot · C# · C++ · REST APIs" /><ToolRow name="AI Engineering" tools="Python · FastAPI · n8n · LLM APIs · Prompt Engineering" /><ToolRow name="Data Engineering" tools="PostgreSQL · Supabase · MongoDB · Prisma · SQL · Pentaho" /><ToolRow name="Platform & Integration" tools="Docker · Git · CI/CD · Cloud · LINE OA · Google APIs · MQTT · JWT" /></>}</div></section>
+    <section className="experience"><p className="sectionNo">05 — {t.experience}</p><Experience period="2025 — 2026" role="Full-stack Developer Intern" place="MFEC Public Company Limited" text={language === "th" ? "ร่วมพัฒนาระบบภายในด้าน PMO Audit และ AI workflow ตั้งแต่เข้าใจความต้องการ พัฒนา ทดสอบ จนถึงนำไปใช้" : "Contributed to internal PMO Audit and AI workflow systems from understanding requirements through development, testing and use."} /><Experience period="2024 — now" role="Software Developer" place="Independent projects" text={language === "th" ? "สร้างและเรียนรู้จากระบบธุรกิจที่ต้องเชื่อม workflow ของผู้ใช้กับข้อมูลและกระบวนการจริง" : "Built and learned from business systems that connect user workflows with real data and operations."} /><Experience period="2024" role="Capstone Developer" place="University of Phayao" text={language === "th" ? "พัฒนาแพลตฟอร์มจัดการฝึกงานด้วย Go, REST APIs และฐานข้อมูล" : "Built an internship-management platform with Go, REST APIs and database integration."} /></section>
+    <section className="contact" id="contact"><div><p className="sectionNo">06 — {t.contact}</p><h2>{t.contactTitle}</h2></div><div className="contactSide"><p>{t.contactBody}</p><a className="email" href="mailto:ninepakapop@gmail.com">ninepakapop@gmail.com <span>↗</span></a><div className="socials"><a href="https://github.com/NinePK" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/pakapop-k" target="_blank">LinkedIn</a></div></div></section><footer><span>© 2026 PAKAPOP KHIAWKHUM</span><span>FULL-STACK DEVELOPER · THAILAND</span></footer>
+    {active && <div className="modalBackdrop" role="presentation" onClick={() => setActive(null)}><section className="projectModal" role="dialog" aria-modal="true" onClick={(event) => event.stopPropagation()}><button className="modalClose" onClick={() => setActive(null)}>×</button><p className="modalKicker">{active.category}</p><h2>{active.title}</h2><p className="modalIntro">{active.copy[language].summary}</p><div className="modalColumns"><ModalList title={t.modalSystem} items={active.copy[language].system} /><ModalList title={t.modalImpact} items={active.copy[language].impact} /></div><div className="modalStack"><h3>{t.modalStack}</h3><div>{active.stack.map((item) => <span key={item}>{item}</span>)}</div></div>{active.href ? <a className="modalLink" href={active.href} target="_blank">GitHub ↗</a> : <p className="modalPrivate">{t.private}</p>}</section></div>}
+  </main>;
 }
+
+function ToolRow({ name, tools }: { name: string; tools: string }) { return <div className="toolRow"><b>{name}</b><span>{tools}</span></div>; }
+function Experience({ period, role, place, text }: { period: string; role: string; place: string; text: string }) { return <div className="experienceRow"><span>{period}</span><h3>{role}</h3><b>{place}</b><p>{text}</p></div>; }
+function Achievement({ image, title, label }: { image: string; title: string; label: string }) { return <article className="achievement"><div className="achievementImage"><Image src={image} alt={title} fill sizes="(max-width:760px) 100vw,33vw" /></div><div className="achievementBody"><p>{label}</p><h3>{title}</h3></div></article>; }
+function ModalList({ title, items }: { title: string; items: string[] }) { return <div><h3>{title}</h3><ul>{items.map((item) => <li key={item}>{item}</li>)}</ul></div>; }
