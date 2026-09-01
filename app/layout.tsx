@@ -2,12 +2,12 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "ภาคพพ เขียวขุม | Full Stack Developer & Software Engineer",
+  title: "Pakapop Khiawkhum | Full Stack Developer & Software Engineer",
   description:
     "Portfolio of Pakapop Khiawkhum — Full Stack Developer with end-to-end SDLC experience, building production web apps, APIs, automation workflows, and AI-integrated systems.",
   keywords: [
     "Pakapop Khiawkhum",
-    "ภาคพพ เขียวขุม",
+    "ภคภพ เขียวขำ",
     "Full Stack Developer",
     "Software Engineer",
     "SDLC",
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     "Thailand",
   ],
   openGraph: {
-    title: "ภาคพพ เขียวขุม | Full Stack Developer",
+    title: "Pakapop Khiawkhum | Full Stack Developer",
     description:
       "Dev ที่ผ่านกระบวนการ SDLC จริง — ตั้งแต่วิเคราะห์ความต้องการ ออกแบบระบบ พัฒนา ทดสอบ จนถึง Deploy ใช้งานจริง",
     type: "website",
