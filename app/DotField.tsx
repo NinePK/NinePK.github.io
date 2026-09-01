@@ -1,6 +1,6 @@
 "use client";
 
-import { memo, useEffect, useRef } from "react";
+import { memo, useEffect, useId, useRef } from "react";
 import "./DotField.css";
 
 type DotFieldProps = {
@@ -156,8 +156,8 @@ const DotField = memo(function DotField({
     return () => { cancelAnimationFrame(frameId); window.clearInterval(speedId); observer.disconnect(); window.removeEventListener("mousemove", onMouseMove); };
   }, [bulgeOnly, bulgeStrength, cursorForce, cursorRadius, dotRadius, dotSpacing, gradientFrom, gradientTo, sparkle, waveAmplitude]);
 
-  const glowId = useRef(`dot-field-glow-${Math.random().toString(36).slice(2, 9)}`);
-  return <div className="dot-field-container" aria-hidden="true"><canvas ref={canvasRef} /><svg><defs><radialGradient id={glowId.current}><stop offset="0%" stopColor={glowColor} /><stop offset="100%" stopColor="transparent" /></radialGradient></defs><circle ref={glowRef} cx="-9999" cy="-9999" r={glowRadius} fill={`url(#${glowId.current})`} /></svg></div>;
+  const glowId = useId();
+  return <div className="dot-field-container" aria-hidden="true"><canvas ref={canvasRef} /><svg><defs><radialGradient id={glowId}><stop offset="0%" stopColor={glowColor} /><stop offset="100%" stopColor="transparent" /></radialGradient></defs><circle ref={glowRef} cx="-9999" cy="-9999" r={glowRadius} fill={`url(#${glowId})`} /></svg></div>;
 });
 
 export default DotField;
